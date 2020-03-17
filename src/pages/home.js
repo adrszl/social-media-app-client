@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
+import Post from '../components/Post';
 
 class home extends Component {
 
@@ -23,7 +24,9 @@ class home extends Component {
     render() {
         let recentPostsMarkup = this.state.screams ? (
             this.state.screams.map((post) => {
-                return <p>{post.body}</p>;
+                return(
+                    <Post post={post} />
+                );
             })
         ) : <p>Loading...</p>
         return (
