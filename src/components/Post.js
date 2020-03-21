@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Link from 'react-router-dom/Link';
+import { Link } from 'react-router-dom';
 
 // MATERIAL UI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -7,6 +7,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+
+// PLACEHOLDER IMAGE
+const placeholderImage = 'https://firebasestorage.googleapis.com/v0/b/react-social-media-app-bc530.appspot.com/o/no-img.png?alt=media';
 
 const styles = {
     card: {
@@ -25,11 +28,10 @@ const styles = {
 class Post extends Component {
     render() {
         const { classes, post: { body, createdAt, userImage, userHandle, screamId, likeCount, commentCount } } = this.props;
-        console.log('image: ', userImage);
         return (
             <Card className={classes.card}>
                 <CardMedia 
-                    image={userImage}
+                    image={userImage ? userImage : placeholderImage}
                     title="Profile image"
                     className={classes.image}/>
                 <CardContent className={classes.content}>

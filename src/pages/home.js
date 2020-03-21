@@ -25,12 +25,12 @@ class home extends Component {
         let recentPostsMarkup = this.state.screams ? (
             this.state.screams.map((post) => {
                 return(
-                    <Post post={post} />
+                    <Post key={post.screamId} post={post} />
                 );
             })
         ) : <p>Loading...</p>
         return (
-            <Grid container spacing={16}>
+            <Grid container spacing={10}>
                 <Grid item sm={8} xs={12}>
                     {recentPostsMarkup}
                 </Grid>

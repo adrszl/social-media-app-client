@@ -10,7 +10,7 @@ import login from './pages/login';
 import signup from './pages/signup';
 
 // MATERIAL UI
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
 import './App.css';
