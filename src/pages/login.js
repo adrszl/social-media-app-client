@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 // MATERIAL UI
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -9,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import reactLogo from '../img/logo192.png'
+import { CircularProgress } from '@material-ui/core';
 
 const styles = {
     form: {
@@ -23,6 +26,16 @@ const styles = {
     },
     textField: {
         margin: '10px auto'
+    },
+    button: {
+        position: 'relative'
+    },
+    progreee: {
+        position: 'absolute'
+    },
+    customError: {
+        color: 'red',
+        margin: '1rem auto'
     }
 }
 
@@ -37,8 +50,22 @@ class login extends Component {
         }
     }
 
-    handleSubmit = () => {
-        console.log('submitted');
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.setState({ loading: true });
+        const userData = {
+            email: this.state.email,
+            password: this.state.password
+        };
+        axios.post('/login', userData)
+            .then((res) => {
+
+                this.setState({ loading: false });
+                this.props.history.push('/');
+            })
+            .catch((error) => {
+                this.setState({ error: error.response.data, loading: false })
+            })
     }
 
     handleChange = (event) => {
@@ -47,6 +74,7 @@ class login extends Component {
 
     render() {
         const { classes } = this.props;
+        const { error, loading } = this.state;
         return (
             <Grid container className={classes.form}>
                 <Grid item sm />
@@ -61,6 +89,8 @@ class login extends Component {
                             type="email" 
                             label="Email" 
                             className={classes.textField}
+                            helperText={error.email}
+                            error={error.email ? true : false}
                             value={this.state.email}
                             onChange={this.handleChange} />
                         <TextField 
@@ -70,11 +100,21 @@ class login extends Component {
                             type="password" 
                             label="Password" 
                             className={classes.textField}
+                            helperText={error.password}
+                            error={error.password ? true : false}
                             value={this.state.password}
                             onChange={this.handleChange} />
-                        <Button type="submit" variant="contained" color="primary" className={classes.button}>
-                            Login
+                        { error.general && (
+                            <Typography variant="body2" className={classes.customError}>
+                                { error.general }
+                            </Typography>
+                        )}
+                        <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={loading}>
+                            {loading ? (
+                                <CircularProgress size={30} className={classes.progress} />
+                            ) : 'Login'}
                         </Button>
+                        <br /><small>Don't have an account? Sign up <Link to="/signup">here</Link></small>
                     </form>
                 </Grid>
                 <Grid item sm />
