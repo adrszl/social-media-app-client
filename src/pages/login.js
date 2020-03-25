@@ -13,31 +13,9 @@ import Button from '@material-ui/core/Button';
 import reactLogo from '../img/logo192.png'
 import { CircularProgress } from '@material-ui/core';
 
-const styles = {
-    form: {
-        textAlign: 'center'
-    },
-    image: {
-        margin: '20px auto'
-    },
-    pageTitle: {
-        fontSize: '3rem',
-        margin: '20px auto'
-    },
-    textField: {
-        margin: '10px auto'
-    },
-    button: {
-        position: 'relative'
-    },
-    progreee: {
-        position: 'absolute'
-    },
-    customError: {
-        color: 'red',
-        margin: '1rem auto'
-    }
-}
+const styles = (theme) => ({
+    ...theme.formPalette
+});
 
 class login extends Component {
     constructor(props) {
@@ -59,7 +37,7 @@ class login extends Component {
         };
         axios.post('/login', userData)
             .then((res) => {
-
+                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
                 this.setState({ loading: false });
                 this.props.history.push('/');
             })
