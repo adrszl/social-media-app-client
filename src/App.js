@@ -2,6 +2,10 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 
+// REDUX
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 // COMPONENTS
 import Navbar from './components/Navbar';
 import AuthRoute from './util/AuthRoute'
@@ -39,20 +43,20 @@ if(token) {
 
 function App() {
   return (
-    <MuiThemeProvider theme={theme}>
-      <div className="App">
-        <BrowserRouter>
-          <Navbar />
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={home} />
-              <AuthRoute exact path="/login" component={login} authenticated={authenticated} />
-              <AuthRoute exact path="/signup" component={signup} authenticated={authenticated} />
-            </Switch>
-          </div>
-        </BrowserRouter>
-      </div>
-    </MuiThemeProvider>
+    <Provider store={store}>
+      <MuiThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Navbar />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={home} />
+                <AuthRoute exact path="/login" component={login} authenticated={authenticated} />
+                <AuthRoute exact path="/signup" component={signup} authenticated={authenticated} />
+              </Switch>
+            </div>
+          </BrowserRouter>
+      </MuiThemeProvider>
+    </Provider>
   );
 }
 
