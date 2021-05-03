@@ -23,7 +23,7 @@ class Profile extends Component {
       user: {
         credentials: { handle, createdAt, imageUrl, bio, website, location },
         loading,
-        authenticated
+        authenticated,
       },
     } = this.props;
 
@@ -75,10 +75,20 @@ class Profile extends Component {
             No profile found, please login again
           </Typography>
           <div className={classes.buttons}>
-            <Button variant="contained" color="primary" component={Link} to="/login">
+            <Button
+              variant="contained"
+              color="primary"
+              component={Link}
+              to="/login"
+            >
               Login
             </Button>
-            <Button variant="contained" color="secondary" component={Link} to="/signup">
+            <Button
+              variant="contained"
+              color="secondary"
+              component={Link}
+              to="/signup"
+            >
               Signup
             </Button>
           </div>
